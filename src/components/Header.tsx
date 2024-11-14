@@ -9,7 +9,7 @@ const Header = () => {
     const isDark = theme === 'dark';
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur py-2 supports-[backdrop-filter]:background/60">
-      <div className="flex justify-between items-center mx-auto container">
+      <div className=" mx-auto container flex items-center justify-between px-4 h-16">
         <Link to='/'>
         <img src={isDark ? "/logo1.png" : "/logo2.png"} alt="logo" className="h-12" />
         </Link>
