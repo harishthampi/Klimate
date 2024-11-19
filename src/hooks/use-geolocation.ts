@@ -40,7 +40,7 @@ export function useGeolocation(){
 
             switch(error.code){
                 case error.PERMISSION_DENIED:
-                    errorMessage = "User denied the request for Geolocation";
+                    errorMessage = "User denied the request for location";
                     break;
                 case error.POSITION_UNAVAILABLE:
                     errorMessage = "Location information is unavailable";
@@ -70,7 +70,7 @@ export function useGeolocation(){
     },[]);
     
     return {
-        locationData,
+        ...locationData,
         getLocation // getLocation function is returned from the hook, which can be used to fetch the user's location.
     }
 }

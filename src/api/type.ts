@@ -19,7 +19,8 @@ export interface WeatherData{
         temp_min:number,
         temp_max:number,
         pressure:number,
-        humidity:number
+        humidity:number,
+        feels_like:number,
     };
     wind:{
         speed:number,
