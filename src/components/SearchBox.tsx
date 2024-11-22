@@ -24,17 +24,18 @@ const SearchBox = () => {
   const navigate = useNavigate();
   const handleSelect = (cityData: string) => {
     const [lat, lon, name, country] = cityData.split("|");
+    console.log("Selected Location:", { lat, lon, name, country });
     //add the city name to search history
     addToHistory.mutate({
       query,
+      name,
       lat: parseFloat(lat),
       lon: parseFloat(lon),
-      name,
       country,
-    })
+    });
 
     setOpen(false);
-    navigate(`/city/${name}??lat=${lat}&lon=${lon}`);
+    navigate(`/city/${name}?lat=${lat}&lon=${lon}`);
   };
   return (
     <>
@@ -65,36 +66,39 @@ const SearchBox = () => {
               <CommandSeparator />
               <CommandGroup>
                 <div className="flex justify-between items-center px-2 my-2">
-                  <p className="text-xs text-muted-foreground">Recently Searched</p>
+                  <p className="text-xs text-muted-foreground">
+                    Recently Searched
+                  </p>
                   <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={()=>clearHistory.mutate()}>
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => clearHistory.mutate()}
+                  >
                     <XCircle className="h-4 w-4" />
                     Clear
                   </Button>
                 </div>
-                {history.map((locationItem:SearchHistoryItem) => (
-                    <CommandItem
-                      key={locationItem.id}
-                      value={`${locationItem.lat}|${locationItem.lon}|${locationItem.name}|${locationItem.country}`}
-                      onSelect={handleSelect}
-                    >
-                      <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
-                      <span>{locationItem.name}</span>
-                      {locationItem.state && (
-                        <span className="text-sm text-muted-foreground">
-                          , {locationItem.state}
-                        </span>
-                      )}
+                {history.map((locationItem: SearchHistoryItem) => (
+                  <CommandItem
+                    key={locationItem.id}
+                    value={`${locationItem.lat}|${locationItem.lon}|${locationItem.name}|${locationItem.country}`}
+                    onSelect={handleSelect}
+                  >
+                    <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
+                    <span>{locationItem.name}</span>
+                    {locationItem.state && (
                       <span className="text-sm text-muted-foreground">
-                        , {locationItem.country}
+                        , {locationItem.state}
                       </span>
-                      <span className="ml-auto text-xs text-muted-foreground">
-                        {format(locationItem.searchedAt, "MMM d, h:mm a")}
-                      </span>
-                    </CommandItem>
-                  ))}
+                    )}
+                    <span className="text-sm text-muted-foreground">
+                      , {locationItem.country}
+                    </span>
+                    <span className="ml-auto text-xs text-muted-foreground">
+                      {format(locationItem.searchedAt, "MMM d, h:mm a")}
+                    </span>
+                  </CommandItem>
+                ))}
               </CommandGroup>
             </>
           )}
@@ -111,7 +115,7 @@ const SearchBox = () => {
               {location?.map((locationItem) => (
                 <CommandItem
                   key={`${locationItem.lat}-${locationItem.lon}`}
-                  value={`${locationItem.lon}|${locationItem.lat}|${locationItem.name}|${locationItem.country}`}
+                  value={`${locationItem.lat}|${locationItem.lon}|${locationItem.name}|${locationItem.country}`} 
                   onSelect={handleSelect}
                 >
                   <SearchIcon className="h-4 w-4 mr-2" />

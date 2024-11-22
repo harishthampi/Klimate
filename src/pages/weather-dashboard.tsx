@@ -1,5 +1,6 @@
 
 import CurrentWeather from "@/components/CurrentWeather";
+import FavoriteCities from "@/components/FavoriteCities";
 import HourlyWeather from "@/components/HourlyWeather";
 import WeatherSkelton from "@/components/skelton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -23,7 +24,7 @@ const DashBoard = () => {
         forecastQuery.refetch();
       }
    };
-
+   
    if(locationLoading){
     return <WeatherSkelton />
    }
@@ -80,7 +81,7 @@ const DashBoard = () => {
 
    return (
     <div className="space-y-4">
-      {/* FavouriteCity */}
+      <FavoriteCities />
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold tracking-tight">My Location</h1>
         <Button  size={"icon"}

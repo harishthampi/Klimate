@@ -16,7 +16,7 @@ import { useLocalStorage } from "./use-localStorage"
  export function useSearchHistory(){
     const[history,setHistory] = useLocalStorage<SearchHistoryItem[]>(
         // persists SearchHistoryItem data in local storage. useLocalStorage returns [history, setHistory], where history is the current search history, and setHistory updates it.
-        "search-history",
+        "search-history", // key for local storage
         [] // initial value
     );
 

@@ -28,6 +28,7 @@ class WeatherAPI {
             lat:lat.toString(),
             lon:lon.toString(),
             units:"metric"
+
         });
         return this.fetchData<WeatherData>(url);
     }
@@ -57,5 +58,6 @@ class WeatherAPI {
         });
         return this.fetchData<GeocodingResponse[]>(url);
     }
+
 }
 export const weatherAPI = new WeatherAPI();
