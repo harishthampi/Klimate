@@ -17,7 +17,6 @@ const CityPage = () => {
 
   const coordinates = { lon, lat };
 
-
   const weatherQuery = useWeatherQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
 
@@ -38,13 +37,18 @@ const CityPage = () => {
   }
   return (
     <div className="space-y-4">
-
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold tracking-tight">{params.cityName}, {weatherQuery.data.sys.country}</h1>
+        <h1 className="text-3xl font-bold tracking-tight">
+          {params.cityName}, {weatherQuery.data.sys.country}
+        </h1>
+
+        <div className="flex">
+          <FavoriteButton
+            data={{ ...weatherQuery.data, name: params.cityName }}
+          />
+        </div>
       </div>
-      <div><FavoriteButton data={{...weatherQuery.data,name:params.cityName}}/></div>
       <div className="grid gap-6">
-        
         <div className="flex flex-col gap-4">
           <CurrentWeather data={weatherQuery.data} />
           <HourlyWeather data={forecastQuery.data} />

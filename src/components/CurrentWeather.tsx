@@ -47,10 +47,10 @@ const CurrentWeather = ({ data, locationName }: CurrentWeatherProps) => {
                 </p>
                 <div className="flex gap-2 text-sm font-medium">
                   <span className="flex items-center text-blue-500">
-                    <ArrowUp className="h-3 w-3" /> {temp_max}
+                    <ArrowUp className="h-3 w-3" /> {Math.round(temp_max)}
                   </span>
                   <span className="flex items-center text-red-500">
-                    <ArrowDown className="h-3 w-3" /> {temp_min}
+                    <ArrowDown className="h-3 w-3" /> {Math.round(temp_min)}
                   </span>
                 </div>
               </div>

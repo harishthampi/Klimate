@@ -12,7 +12,6 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
   const formatTime = (time: number) => {
     return format(new Date(time * 1000), "h:mm a");
   };
-  console.log(data);
 
   const windDirection = (deg: number) => {
     const direction = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];

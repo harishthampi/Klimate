@@ -1,4 +1,4 @@
-import { Clock, Loader2, Search, SearchIcon, XCircle } from "lucide-react";
+import { Clock, Loader2, Search, SearchIcon, Star, XCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   CommandDialog,
@@ -14,11 +14,13 @@ import { useLocationSearch } from "@/hooks/use-weather";
 import { useNavigate } from "react-router-dom";
 import { SearchHistoryItem, useSearchHistory } from "@/hooks/use-searchHistory";
 import { format } from "date-fns";
+import { useFavorites } from "@/hooks/use-favourite";
 
 const SearchBox = () => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const { history, addToHistory, clearHistory } = useSearchHistory();
+  const{favoritesQuery} = useFavorites();
 
   const { data: location, isLoading } = useLocationSearch(query);
   const navigate = useNavigate();
@@ -57,9 +59,30 @@ const SearchBox = () => {
           {query.length > 2 && !isLoading && (
             <CommandEmpty>No cities found.</CommandEmpty>
           )}
-          <CommandGroup heading="Favorite">
-            <CommandItem>Item 1</CommandItem>
-          </CommandGroup>
+
+{favoritesQuery.data?.length > 0 && (
+              <CommandGroup heading='Favorites'>
+
+                {favoritesQuery.data?.map((locationItem: SearchHistoryItem) => (
+                  <CommandItem
+                    key={locationItem.id}
+                    value={`${locationItem.lat}|${locationItem.lon}|${locationItem.name}|${locationItem.country}`}
+                    onSelect={handleSelect}
+                  >
+                    <Star className="mr-2 h-4 w-4 text-yellow-500" />
+                    <span>{locationItem.name}</span>
+                    {locationItem.state && (
+                      <span className="text-sm text-muted-foreground">
+                        , {locationItem.state}
+                      </span>
+                    )}
+                    <span className="text-sm text-muted-foreground">
+                      , {locationItem.country}
+                    </span>
+                  </CommandItem>
+                ))}
+                </CommandGroup>
+)}
 
           {history.length > 0 && (
             <>

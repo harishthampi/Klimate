@@ -1,19 +1,21 @@
 import { WeatherData } from "@/api/type";
-import { Button } from "./ui/button";
 import { useFavorites } from "@/hooks/use-favourite";
 import { Star } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "./ui/button";
 
 interface FavoritesButtonData {
   data: WeatherData;
 }
 
 const FavoriteButton = ({ data }: FavoritesButtonData) => {
-  const { addFavorites, isFavorite, removeFavorites } = useFavorites();
+  const { addFavorites, isFavorite, removeFavorites} = useFavorites();
   const isCurrentlyFavorite = isFavorite(data.coord.lat, data.coord.lon);
-  console.log("issss",isCurrentlyFavorite);
   
-  const handleClick = () => {
+  
+  const handleToggleFavorite = () => {
+    console.log("clicked",isCurrentlyFavorite);
+    
     if (isCurrentlyFavorite) {
       removeFavorites.mutate(`${data.coord.lat}-${data.coord.lon}`);
       toast.error(`Removed ${data.name} from favorites`);
@@ -29,16 +31,15 @@ const FavoriteButton = ({ data }: FavoritesButtonData) => {
   };
   return (
     <Button
-      variant={isCurrentlyFavorite ? "outline" : "default"}
-      size={"icon"}
-      className={isCurrentlyFavorite ? "bg-yellow-500 hover:bg-yellow-500" : ""}
-      onClick={handleClick}
-    >
-      <Star
-        className={`h-6 w-6 ${isCurrentlyFavorite ? "fill-current" : ""}`}
-      />
-    </Button>
-  );
+    variant={isCurrentlyFavorite ? "default" : "outline"}
+    size="icon"
+    onClick={handleToggleFavorite}
+    className="bg-yellow-500 hover:bg-yellow-600">
+    <Star
+      className={`h-4 w-4 ${isCurrentlyFavorite ? "fill-current" : ""}`}
+    />
+  </Button>
+);
 };
 
 export default FavoriteButton;

@@ -36,7 +36,7 @@ import { useLocalStorage } from "./use-localStorage"
             city:Omit<FavoritesItem,"id"|"addedAt"> 
         ) => {
             const newFavorite : FavoritesItem = {
-                ...favorites,
+                ...city,
                 id:`${city.lat}-${city.lon}`,
                 addedAt:Date.now(),
             };
@@ -71,7 +71,7 @@ import { useLocalStorage } from "./use-localStorage"
         favoritesQuery,
         addFavorites,
         removeFavorites,
-        isFavorite:(lat:number,lon:number) => favorites.some((city:FavoritesItem) => city.lat === lat && city.lon === lon)
+        isFavorite:(lat:number,lon:number) => favorites.some((city:FavoritesItem) => city.lat === lat && city.lon === lon),
     }
     
 }

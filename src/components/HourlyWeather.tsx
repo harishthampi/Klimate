@@ -33,7 +33,7 @@ const HourlyWeather = ({ data }: HourlyWeatherProps) => {
                     fontSize={12}
                     tickLine={false}
                     axisLine={false} 
-                    tickFormatter={(value) => `${value}°C`} />
+                    tickFormatter={(value) => `${value}°`} />
                     
                     <Tooltip 
                     content={({active,payload}) =>{
@@ -65,7 +65,7 @@ const HourlyWeather = ({ data }: HourlyWeatherProps) => {
 
                     <Line
                     type="monotone"
-                    dataKey="temp"
+                    dataKey="feels_like"
                     stroke="#2563eb"
                     strokeWidth={2}
                     dot={false} 
